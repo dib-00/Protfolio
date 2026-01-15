@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dibyendu Mondal | Portfolio</title>
+    <meta name="description" content="Portfolio of Dibyendu Mondal - Electronics & Communication Engineering Student">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#3B82F6', // Blue 500
+                        secondary: '#10B981', // Emerald 500
+                        dark: '#0F172A', // Slate 900
+                        darker: '#020617', // Slate 950
+                        card: '#1E293B', // Slate 800
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities */
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: float 10s infinite alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, 30px); }
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .project-card {
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            border-color: #3B82F6;
+        }
+    </style>
+
+    <script>
+function sendToWhatsApp(event) {
+    event.preventDefault(); // Stop normal form submission
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (!name || !email || !message) {
+        alert("Please fill in all fields before sending.");
+        return;
+    }
+
+    const phoneNumber = "917003920793"; // WhatsApp requires country code
+
+    const text =
+        `Hello, I’m ${name}%0A` +
+        `Email: ${email}%0A%0A` +
+        `Message:%0A${message}`;
+
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${text}`;
+
+    window.open(whatsappURL, "_blank");
+}
+</script>
+
+</head>
+
+
+<body class="bg-darker text-slate-300 font-sans antialiased selection:bg-primary selection:text-white">
+
+    <!-- Background Effects -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <div class="blob bg-primary w-96 h-96 rounded-full top-0 left-0 -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="blob bg-secondary w-96 h-96 rounded-full bottom-0 right-0 translate-x-1/2 translate-y-1/2 animation-delay-2000"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="text-2xl font-bold text-white tracking-tighter"><span class="text-primary">DM</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#about" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="#skills" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Skills</a>
+                        <a href="#projects" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
+                        <a href="#education" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Education</a>
+                        <a href="#contact" class="bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-all shadow-lg shadow-blue-500/30">Contact Me</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-card border-b border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block hover:bg-dark hover:text-primary px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#about" class="block hover:bg-dark hover:text-primary px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#skills" class="block hover:bg-dark hover:text-primary px-3 py-2 rounded-md text-base font-medium">Skills</a>
+                <a href="#projects" class="block hover:bg-dark hover:text-primary px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="#contact" class="block hover:bg-dark text-primary px-3 py-2 rounded-md text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative z-10 min-h-screen flex items-center justify-center pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse md:flex-row items-center">
+            <div class="md:w-1/2 text-center md:text-left mt-10 md:mt-0">
+                <p class="text-secondary font-mono mb-4 text-lg">Hello, I am</p>
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                    Dibyendu <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Mondal</span>
+                </h1>
+                <h2 class="text-xl md:text-2xl text-slate-400 mb-8 max-w-lg mx-auto md:mx-0">
+                    <span id="typewriter" class="text-white border-r-2 border-primary pr-1"></span>
+                </h2>
+                <p class="text-slate-400 mb-10 max-w-lg mx-auto md:mx-0 leading-relaxed">
+                    Passionate about integrating hardware and software to build functional prototypes, IoT solutions, and smart systems.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#projects" class="bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-full font-medium transition-all shadow-lg shadow-blue-500/30 text-center">
+                        View Work
+                    </a>
+                    <a href="#contact" class="border border-slate-600 hover:border-white text-white px-8 py-3 rounded-full font-medium transition-all text-center">
+                        Contact Me
+                    </a>
+                    <a href="image/Dibyendu Resume all (1).pdf" download="" class="bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-full font-medium transition-all shadow-lg shadow-blue-500/30 text-center">
+                        Download CV
+                    </a>
+                </div>
+                
+                <div class="mt-12 flex items-center justify-center md:justify-start space-x-6 text-2xl text-slate-400">
+                    <a href="https://linkedin.com/in/dibyendu-mondal-71b022285" target="_blank" class="hover:text-primary transition-colors"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:dm028872@gmail.com" class="hover:text-primary transition-colors"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/dib-00" class="hover:text-primary transition-colors"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center relative">
+    <div class="w-64 h-64 md:w-96 md:h-96 relative">
+        <div class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-full opacity-20 blur-2xl animate-pulse"></div>
+
+        <div class="relative w-full h-full rounded-full border-2 border-slate-700 bg-card overflow-hidden flex items-center justify-center">
+            <!-- Profile Image -->
+            <img 
+                src="document/profile image.jpg"
+                alt="Profile Photo"
+                class="w-full h-full object-cover rounded-full"
+            />
+        </div>
+
+        <!-- Floating Badge -->
+        <div class="absolute -bottom-2 -right-2 bg-card border border-slate-700 p-2 rounded-lg shadow-md flex items-center gap-2 animate-bounce"
+            style="animation-duration: 3s;">
+            <div class="bg-green-500/20 p-1.5 rounded-md text-green-500">
+                <i class="fas fa-microchip text-sm"></i>
+            </div>
+
+            <div>
+                <p class="text-[10px] text-slate-400 leading-tight">Specialization</p>
+                <p class="text-xs font-semibold text-white leading-tight">
+                    Embedded Systems
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block mb-4 px-6 py-2 text-sm font-medium text-blue-400 border border-cyan-400/30 rounded-full bg-cyan-400/10">
+                    Get To Know
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4"></span> About Me</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
+
+
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center bg-card/50 p-8 rounded-2xl border border-slate-800 backdrop-blur-sm">
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-4"></h3>
+                    <p class="text-slate-400 mb-4 leading-relaxed">
+                        I am a motivated <strong class="text-primary">Electronics and Communication Engineering</strong> student at Swami Vivekanand Institute of Science and Technology. My journey involves deep diving into embedded systems, PCB design, and robotics.
+                    </p>
+                    <p class="text-slate-400 mb-6 leading-relaxed">
+                        Beyond hardware, I am a capable full-stack developer with experience in Flutter, Firebase, and web technologies. I thrive on problem-solving and innovation, constantly seeking to bridge the gap between physical hardware and intelligent software.
+                    </p>
+                    <p class="text-slate-400 mb-6 leading-relaxed">
+                        From designing custom PCBs and SMPS circuits to developing AI-powered robots and cross-platform applications, I thrive on solving complex technical challenges and bringing innovative ideas to life.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-sm font-mono text-slate-300">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-caret-right text-primary"></i> Robotics
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-caret-right text-primary"></i> IoT Solutions
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-caret-right text-primary"></i> PCB Design
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-caret-right text-primary"></i> App Dev
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-dark p-6 rounded-xl border border-slate-700 text-center hover:border-primary transition-colors">
+                            <i class="fas fa-robot text-3xl text-primary mb-3"></i>
+                            <h4 class="font-bold text-white">Robotics</h4>
+                            <p class="text-xs text-slate-500 mt-1">Autonomous Systems</p>
+                        </div>
+                        <div class="bg-dark p-6 rounded-xl border border-slate-700 text-center hover:border-primary transition-colors translate-y-4">
+                            <i class="fas fa-code text-3xl text-secondary mb-3"></i>
+                            <h4 class="font-bold text-white">Coding</h4>
+                            <p class="text-xs text-slate-500 mt-1">Python & C++</p>
+                        </div>
+                        <div class="bg-dark p-6 rounded-xl border border-slate-700 text-center hover:border-primary transition-colors">
+                            <i class="fas fa-mobile-alt text-3xl text-purple-500 mb-3"></i>
+                            <h4 class="font-bold text-white">Apps</h4>
+                            <p class="text-xs text-slate-500 mt-1">Flutter & Dart</p>
+                        </div>
+                        <div class="bg-dark p-6 rounded-xl border border-slate-700 text-center hover:border-primary transition-colors translate-y-4">
+                            <i class="fas fa-cogs text-3xl text-orange-500 mb-3"></i>
+                            <h4 class="font-bold text-white">Hardware</h4>
+                            <p class="text-xs text-slate-500 mt-1">Repair & Design</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 relative z-10 bg-dark/50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block mb-4 px-6 py-2 text-sm font-medium text-blue-400 border border-cyan-400/30 rounded-full bg-cyan-400/10">
+                    Skills & Technologies
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4"></span>Technical Arsenal</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Electronics -->
+                <div class="bg-card p-6 rounded-xl border border-slate-800 hover:border-slate-600 transition-all">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-3 bg-blue-500/10 rounded-lg text-blue-500">
+                            <i class="fas fa-microchip text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Electronics</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">Embedded Systems</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">Raspberry Pi</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">PCB Design</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">SMPS Design</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">Computer Hardware & Software</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">EV, Mobile & TV Technician</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">PLC Automation</span>
+                    </div>
+                </div>
+
+                <!-- Software -->
+                <div class="bg-card p-6 rounded-xl border border-slate-800 hover:border-slate-600 transition-all">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-3 bg-green-500/10 rounded-lg text-green-500">
+                            <i class="fas fa-code text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Programming</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">Python</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">C / C++</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">Flutter (Dart)</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">HTML/CSS</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">JavaScript</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">Firebase</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">WordPress</span>
+                    </div>
+                </div>
+
+                <!-- Tools & Design -->
+                <div class="bg-card p-6 rounded-xl border border-slate-800 hover:border-slate-600 transition-all">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-3 bg-purple-500/10 rounded-lg text-purple-500">
+                            <i class="fas fa-layer-group text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Tools & Design</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">Adobe Photoshop</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">Premiere Pro</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">After Effects</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">Figma</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">Filmora</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">Capcut</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">Blender</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">Unity</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">Unreal Engine</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">MS Office</span>
+                        <span class="skill-tag px-3 py-1 bg-dark rounded-full text-sm text-slate-300 border border-slate-700 cursor-default">Kali Linux</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 relative z-10">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block mb-4 px-6 py-2 text-sm font-medium text-blue-400 border border-cyan-400/30 rounded-full bg-cyan-400/10">
+                    My Work
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4"></span>Featured Projects</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1 -->
+                <div class="project-card bg-card rounded-xl overflow-hidden border border-slate-800 flex flex-col h-full">
+                    
+                    <!-- Project Image -->
+                    <div class="w-full h-48 overflow-hidden">
+                        <img 
+                            src="document/Kiyo 01.jpg"
+                            alt="Kiyo - AI Assistant Robot"
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                    </div>
+                    
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <i class="fas fa-robot text-4xl text-primary"></i>
+                            <div class="flex gap-3">
+                                <a href="https://www.linkedin.com/posts/dibyendu-mondal-71b022285_kiyo-ai-assistant-robot-activity-7416878026237382656-JkjL?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEU8g4cBz0wxyIIBCPT3TnlCm-z8SQZdQ5g" class="text-slate-400 hover:text-white"><i class="fab fa-linkedin-in text-xl"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Kiyo - AI Assistant Robot</h3>
+                        <p class="text-slate-400 text-sm mb-4">
+                            Interactive AI-powered personal assistant robot capable of voice recognition, query response, and basic task execution.
+                        </p>
+                        <ul class="flex flex-wrap gap-2 mt-auto">
+                            <li class="text-xs font-mono text-secondary">Arduino</li>
+                            <li class="text-xs font-mono text-secondary">Python</li>
+                            <li class="text-xs font-mono text-secondary">Servo Motors</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card bg-card rounded-xl overflow-hidden border border-slate-800 flex flex-col h-full">
+                    <!-- Project Image -->
+                    <div class="w-full h-48 overflow-hidden">
+                        <img 
+                            src="document/Adaptive wheel.png"
+                            alt="Adaptive Wheels"
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                    </div>
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <i class="fas fa-wheelchair text-4xl text-green-500"></i>
+                            <div class="flex gap-3">
+                                <a href="https://www.linkedin.com/posts/dibyendu-mondal-71b022285_adaptive-wheels-motion-sensor-based-smart-activity-7416893742013493248-K4Iz?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEU8g4cBz0wxyIIBCPT3TnlCm-z8SQZdQ5g" class="text-slate-400 hover:text-white"><i class="fab fa-linkedin-in text-xl"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Adaptive Wheels</h3>
+                        <p class="text-slate-400 text-sm mb-4">
+                            Motion sensor-based smart wheelchair controlled via finger movements, enabling hands-free navigation for physically challenged users.
+                        </p>
+                        <ul class="flex flex-wrap gap-2 mt-auto">
+                            <li class="text-xs font-mono text-secondary">Arduino UNO</li>
+                            <li class="text-xs font-mono text-secondary">Gyro Sensors</li>
+                            <li class="text-xs font-mono text-secondary">Embedded C</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card bg-card rounded-xl overflow-hidden border border-slate-800 flex flex-col h-full">
+                    <!-- Project Image -->
+                    <div class="w-full h-48 overflow-hidden">
+                        <img 
+                            src="document/quick bill.png"
+                            alt="Quick Bill App"
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                    </div>
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <i class="fas fa-file-invoice text-4xl text-blue-400"></i>
+                            <div class="flex gap-3">
+                                <a href="#" class="text-slate-400 hover:text-white"><i class="fab fa-github text-xl"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Quick Bill App</h3>
+                        <p class="text-slate-400 text-sm mb-4">
+                            Billing mobile app with real-time data sync, product management, and PDF invoice generation capabilities.
+                        </p>
+                        <ul class="flex flex-wrap gap-2 mt-auto">
+                            <li class="text-xs font-mono text-secondary">Flutter</li>
+                            <li class="text-xs font-mono text-secondary">Dart</li>
+                            <li class="text-xs font-mono text-secondary">Firebase</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card bg-card rounded-xl overflow-hidden border border-slate-800 flex flex-col h-full">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <i class="fas fa-plug text-4xl text-yellow-500"></i>
+                            <div class="flex gap-3">
+                                <a href="#" class="text-slate-400 hover:text-white"><i class="fab fa-github text-xl"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">35V Full-Bridge SMPS</h3>
+                        <p class="text-slate-400 text-sm mb-4">
+                            Designed a custom Switch Mode Power Supply with voltage regulation and stable output using PWM controllers.
+                        </p>
+                        <ul class="flex flex-wrap gap-2 mt-auto">
+                            <li class="text-xs font-mono text-secondary">Power Electronics</li>
+                            <li class="text-xs font-mono text-secondary">MOSFETs</li>
+                            <li class="text-xs font-mono text-secondary">Circuit Design</li>
+                        </ul>
+                    </div>
+                </div>
+
+                 <!-- Project 5 -->
+                 <div class="project-card bg-card rounded-xl overflow-hidden border border-slate-800 flex flex-col h-full">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <i class="fas fa-users text-4xl text-purple-400"></i>
+                            <div class="flex gap-3">
+                                <a href="#" class="text-slate-400 hover:text-white"><i class="fas fa-external-link-alt text-xl"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Recruitment Website</h3>
+                        <p class="text-slate-400 text-sm mb-4">
+                            Platform for job posting and applications with real-time data access and secure authentication.
+                        </p>
+                        <ul class="flex flex-wrap gap-2 mt-auto">
+                            <li class="text-xs font-mono text-secondary">HTML/CSS</li>
+                            <li class="text-xs font-mono text-secondary">JavaScript</li>
+                            <li class="text-xs font-mono text-secondary">Firestore</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card bg-card rounded-xl overflow-hidden border border-slate-800 flex flex-col h-full">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <i class="fas fa-gamepad text-4xl text-red-400"></i>
+                            <div class="flex gap-3">
+                                <a href="#" class="text-slate-400 hover:text-white"><i class="fas fa-external-link-alt text-xl"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Web Games Suite</h3>
+                        <p class="text-slate-400 text-sm mb-4">
+                            Developed interactive browser games including UNO (turn-based logic) and Tic Tac Toe (multiplayer).
+                        </p>
+                        <ul class="flex flex-wrap gap-2 mt-auto">
+                            <li class="text-xs font-mono text-secondary">JavaScript Logic</li>
+                            <li class="text-xs font-mono text-secondary">DOM Manipulation</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Certifications -->
+    <section id="education" class="py-20 relative z-10 bg-dark/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4"></span> Journey</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Education -->
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                        <i class="fas fa-graduation-cap text-primary"></i> Education
+                    </h3>
+                    <div class="space-y-8 border-l-2 border-slate-800 pl-8 ml-3 relative">
+                        <!-- Item -->
+                        <div class="relative">
+                            <span class="absolute -left-[41px] top-1 bg-darker border-2 border-primary w-5 h-5 rounded-full"></span>
+                            <h4 class="text-lg font-bold text-white">B.Tech in ECE</h4>
+                            <p class="text-primary text-sm mb-1">2022 - Present (Expected 2026)</p>
+                            <p class="text-slate-400 text-sm">Swami Vivekanand Institute of Science and Technology (SVIST)</p>
+                        </div>
+                        <!-- Item -->
+                        <div class="relative">
+                            <span class="absolute -left-[41px] top-1 bg-darker border-2 border-slate-600 w-5 h-5 rounded-full"></span>
+                            <h4 class="text-lg font-bold text-white">Higher Secondary (12th)</h4>
+                            <p class="text-slate-500 text-sm mb-1">2022 | Grade: 81%</p>
+                            <p class="text-slate-400 text-sm">Kotalpur Madhusudan High School</p>
+                        </div>
+                        <!-- Item -->
+                        <div class="relative">
+                            <span class="absolute -left-[41px] top-1 bg-darker border-2 border-slate-600 w-5 h-5 rounded-full"></span>
+                            <h4 class="text-lg font-bold text-white">Secondary (10th)</h4>
+                            <p class="text-slate-500 text-sm mb-1">2020 | Grade: 56%</p>
+                            <p class="text-slate-400 text-sm">Padmapukur Madhya Vidyalaya</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certifications -->
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                        <i class="fas fa-certificate text-secondary"></i> Certifications
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-card p-4 rounded-lg border border-slate-800 flex items-center gap-4">
+                            <div class="bg-blue-500/10 p-2 rounded text-blue-500"><i class="fas fa-industry"></i></div>
+                            <div>
+                                <h4 class="text-white font-medium">PLC & Industrial Automation</h4>
+                                <p class="text-xs text-slate-500">MSME - Certified Engineer</p>
+                            </div>
+                        </div>
+                        <div class="bg-card p-4 rounded-lg border border-slate-800 flex items-center gap-4">
+                            <div class="bg-purple-500/10 p-2 rounded text-purple-500"><i class="fas fa-network-wired"></i></div>
+                            <div>
+                                <h4 class="text-white font-medium">Computer Maintenance & Networking</h4>
+                                <p class="text-xs text-slate-500">(WBSCTVESD) - Grade A+</p>
+                            </div>
+                        </div>
+                        <div class="bg-card p-4 rounded-lg border border-slate-800 flex items-center gap-4">
+                            <div class="bg-green-500/10 p-2 rounded text-green-500"><i class="fas fa-charging-station"></i></div>
+                            <div>
+                                <h4 class="text-white font-medium">EV Service Technician</h4>
+                                <p class="text-xs text-slate-500">Sambhav Foundation Angel One</p>
+                            </div>
+                        </div>
+                        <div class="bg-card p-4 rounded-lg border border-slate-800 flex items-center gap-4">
+                            <div class="bg-orange-500/10 p-2 rounded text-orange-500"><i class="fas fa-tools"></i></div>
+                            <div>
+                                <h4 class="text-white font-medium">Mobile & TV Repair Technician</h4>
+                                <p class="text-xs text-slate-500">650 Hours (WBSCTVESD) - Certified Technician</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- Contact Section -->
+<section id="contact" class="py-24 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Section Header -->
+        <div class="text-center mb-20">
+            <span class="inline-block mb-4 px-6 py-2 
+                         text-sm font-medium text-blue-400 
+                         border border-blue-400/30 
+                         rounded-full bg-blue-400/10">
+                Get In Touch
+            </span>
+
+            <h2 class="text-4xl md:text-5xl font-extrabold 
+                       bg-gradient-to-r from-cyan-400 to-blue-500 
+                       bg-clip-text text-transparent mb-4">
+                Let's Connect
+            </h2>
+
+            <p class="text-slate-400 max-w-xl mx-auto">
+                Have a project in mind or want to collaborate? Feel free to reach out!
+            </p>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+            <!-- Contact Form -->
+                <div class="bg-gradient-to-br from-slate-900/80 to-slate-800/60 
+                            border border-slate-700/60 
+                            rounded-2xl p-8 shadow-xl">
+
+                    <form class="space-y-6" onsubmit="sendToWhatsApp(event)">
+
+                        <!-- Name -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">
+                                Your Name
+                            </label>
+                            <input 
+                                id="name"
+                                type="text"
+                                placeholder="John Doe"
+                                required
+                                class="w-full bg-transparent 
+                                    border border-cyan-500/30 
+                                    rounded-lg px-4 py-3 
+                                    text-white placeholder-slate-500
+                                    focus:outline-none focus:border-cyan-400
+                                    transition"
+                            />
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">
+                                Email Address
+                            </label>
+                            <input 
+                                id="email"
+                                type="email"
+                                placeholder="john@example.com"
+                                required
+                                class="w-full bg-transparent 
+                                    border border-cyan-500/30 
+                                    rounded-lg px-4 py-3 
+                                    text-white placeholder-slate-500
+                                    focus:outline-none focus:border-cyan-400
+                                    transition"
+                            />
+                        </div>
+
+                        <!-- Message -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">
+                                Message
+                            </label>
+                            <textarea 
+                                id="message"
+                                rows="5"
+                                placeholder="Tell me about your project or idea..."
+                                required
+                                class="w-full bg-transparent 
+                                    border border-cyan-500/30 
+                                    rounded-lg px-4 py-3 
+                                    text-white placeholder-slate-500
+                                    focus:outline-none focus:border-cyan-400
+                                    transition resize-none"
+                            ></textarea>
+                        </div>
+
+                        <!-- Button -->
+                        <button 
+                            type="submit"
+                            class="w-full flex items-center justify-center gap-2
+                                bg-gradient-to-r from-cyan-500 to-blue-600
+                                hover:from-cyan-400 hover:to-blue-500
+                                text-white font-semibold py-3 rounded-lg
+                                transition shadow-lg shadow-blue-500/30">
+                            Send Message
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+
+                    </form>
+                </div>
+
+
+                    
+
+            <!-- Contact Info -->
+            <div class="space-y-8">
+
+                <!-- Info Cards -->
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4">Contact Information</h3>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 bg-card border border-slate-800 p-5 rounded-xl">
+                            <div class="p-3 rounded-lg bg-blue-500/20 text-blue-400">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-slate-400">Email</p>
+                                <p class="text-white font-medium">dm028872@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 bg-card border border-slate-800 p-5 rounded-xl">
+                            <div class="p-3 rounded-lg bg-cyan-500/20 text-cyan-400">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-slate-400">Phone</p>
+                                <p class="text-white font-medium">+91 7003920793</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 bg-card border border-slate-800 p-5 rounded-xl">
+                            <div class="p-3 rounded-lg bg-indigo-500/20 text-indigo-400">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-slate-400">Location</p>
+                                <p class="text-white font-medium">West Bengal, India</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Links -->
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4">Connect on Social</h3>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <a href="https://linkedin.com/in/dibyendu-mondal-71b022285" class="social-card">
+                            <i class="fab fa-linkedin text-blue-400 text-2xl"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="https://github.com/dib-00" class="social-card">
+                            <i class="fab fa-github text-white text-2xl"></i>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="https://x.com/DibyenduMo82951" class="social-card">
+                            <i class="fab fa-x-twitter text-sky-400 text-2xl"></i>
+                            <span>X</span>
+                        </a>
+                        <a href="mailto:dm028872@gmail.com" class="social-card">
+                            <i class="fas fa-envelope text-blue-400 text-2xl"></i>
+                            <span>Email</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer class="bg-darker py-8 text-center border-t border-slate-800 relative z-10">
+        <p class="text-xs text-slate-700 font-mono"></p>
+        <div class="flex justify-center gap-6 text-slate-400 mb-4">
+             <a href="https://linkedin.com/in/dibyendu-mondal-71b022285" class="hover:text-primary"><i class="fab fa-linkedin"></i></a>
+             <a href="mailto:dm028872@gmail.com" class="hover:text-primary"><i class="fas fa-envelope"></i></a>
+             <a href="https://github.com/dib-00" class="hover:text-primary transition-colors"><i class="fab fa-github"></i></a>
+        </div>
+        <p class="text-slate-500 text-sm mb-2">© 2025 Designed & Built by Dibyendu Mondal</p>
+    </footer>
+
+    <script>
+    // ===============================
+    // Typewriter Effect (Continuous)
+    // ===============================
+    const texts = [
+        "Electronics & Communication Engineer",
+        "Embedded Systems",
+        "Robotics",
+        "Full-Stack Developer"
+    ];
+
+    const typewriter = document.getElementById('typewriter');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    const typingSpeed = 100;
+    const deletingSpeed = 60;
+    const pauseAfterTyping = 1500;
+
+    function typeEffect() {
+        const currentText = texts[textIndex];
+
+        if (!isDeleting) {
+            // Typing
+            typewriter.textContent = currentText.substring(0, charIndex + 1);
+            charIndex++;
+
+            if (charIndex === currentText.length) {
+                setTimeout(() => isDeleting = true, pauseAfterTyping);
+            }
+        } else {
+            // Deleting
+            typewriter.textContent = currentText.substring(0, charIndex - 1);
+            charIndex--;
+
+            if (charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+            }
+        }
+
+        setTimeout(typeEffect, isDeleting ? deletingSpeed : typingSpeed);
+    }
+
+    // Start typing animation
+    setTimeout(typeEffect, 1000);
+
+    // ===============================
+    // Mobile Menu Toggle
+    // ===============================
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+
+    btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking a link
+    menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            menu.classList.add('hidden');
+        });
+    });
+
+    // ===============================
+    // Navbar Scroll Effect
+    // ===============================
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+            nav.classList.add('shadow-lg');
+        } else {
+            nav.classList.remove('shadow-lg');
+        }
+    });
+
+    // ===============================
+    // Intersection Observer (Fade-in)
+    // ===============================
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('opacity-100', 'translate-y-0');
+                entry.target.classList.remove('opacity-0', 'translate-y-10');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section > div').forEach(el => {
+        el.classList.add(
+            'transition-all',
+            'duration-1000',
+            'opacity-0',
+            'translate-y-10'
+        );
+        observer.observe(el);
+    });
+    </script>
+
+</body>
+</html>
